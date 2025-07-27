@@ -32,3 +32,17 @@ model.fit(X_train_tfidf, y_train)
 y_pred = model.predict(X_test_tfidf)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Classification Report:\n", classification_report(y_test, y_pred, target_names=["Legitimate", "Phishing"]))
+
+print("\n🔍 Phishing URL Detection Tool")
+while True:
+    url = input("Enter a URL to check (or type 'exit' to quit): ").strip()
+    if url.lower() == 'exit':
+        break
+    url_vec = vectorizer.transform([url])
+    prediction = model.predict(url_vec)[0]
+    
+    if prediction == 1:
+        print("⚠️  This URL is likely PHISHING!\n")
+    else:
+        print("✅  This URL appears LEGITIMATE.\n")
+
